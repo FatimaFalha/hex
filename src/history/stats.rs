@@ -64,6 +64,9 @@ pub fn summarize<'a>(
     let mut apps: HashMap<&str, u64> = HashMap::new();
     let mut days = std::collections::BTreeSet::new();
     for entry in entries {
+        if entry.cancelled {
+            continue;
+        }
         stats.dictations += 1;
         let words = entry.final_text.split_whitespace().count() as u64;
         stats.words += words;
@@ -162,6 +165,7 @@ mod tests {
         audio_ms: u64,
     ) -> HistoryEntry {
         HistoryEntry {
+            cancelled: false,
             id: day,
             timestamp_ms: day * DAY + 1_000,
             kind: HistoryKind::Dictation,
