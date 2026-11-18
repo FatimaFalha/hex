@@ -20,6 +20,8 @@ pub(crate) mod keyboard_model_switching;
 pub(crate) mod languages;
 #[cfg(any(target_os = "linux", target_os = "windows"))]
 pub(crate) mod local_transcriber;
+#[cfg(target_os = "macos")]
+pub(crate) mod metal_tensor;
 pub(crate) mod model_benchmarks;
 pub(crate) mod model_details;
 pub(crate) mod models;

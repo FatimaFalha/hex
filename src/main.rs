@@ -298,6 +298,8 @@ enum MeetingCommand {
 
 #[cfg(target_os = "macos")]
 fn main() -> Result<()> {
+    // Before anything starts a thread or ggml: see `metal_tensor`.
+    transcription::metal_tensor::disable();
     color_eyre::install()?;
     let cli = Cli::parse_from(mcp_alias_arguments(std::env::args_os().collect()));
     let executable_name = std::env::current_exe()
