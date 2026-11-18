@@ -572,8 +572,12 @@ A dictation's OpenCode rewrite or voice prompt with no chosen model walks Hex's
 ranked fast models: the list is cached per service, any one failing drops the
 cache (the next request reads OpenCode's catalog again), and when every ranked
 model fails OpenCode's own default model answers, so a list read while OpenCode
-was still loading no longer fails every request until a restart (#1123). Check:
-`stale_ranked_models_fall_back_to_the_default_model` in
+was still loading no longer fails every request until a restart (#1123).
+Providers that run a model through a local agent harness, like Claude Agent,
+are never picked automatically because each request pays the harness's startup,
+and they stay explicitly selectable (#1954). Check:
+`stale_ranked_models_fall_back_to_the_default_model` and
+`agent_harness_models_never_rank_and_fall_back_to_the_default_model` in
 [dictation/processor.rs](../../src/dictation/processor.rs).
 
 ### Terminal Paste Shortcut (Labs, Windows and Linux)
